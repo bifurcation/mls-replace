@@ -1242,9 +1242,6 @@ uint64 leaf_node_epoch;
 <a href="#name-content-of-the-leaf_node_ep" class="selfRef">Content of the `leaf_node_epoch` extension</a>
         </figcaption></figure>
 </div>
-<p id="section-3-3">This extension complements the inclusion of the <code>group_id</code> and <code>leaf_index</code> in
-the LeafNodeTBS structure, so that the leaf node signature also binds the signed
-data to a specific epoch of the group.<a href="#section-3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="replace-proposal">
@@ -1275,17 +1272,20 @@ proposal <span class="bcp14">MUST</span> verify the following properties of the 
 the proposal as invalid if any one of them is false:<a href="#section-4-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4-4.1">
-          <p id="section-4-4.1.1">The <code>extensions</code> field of the LeafNode contains an extension of type
-<code>leaf_node_epoch</code>.<a href="#section-4-4.1.1" class="pilcrow">¶</a></p>
+          <p id="section-4-4.1.1">The <code>leaf_node_source</code> field of the LeafNode is be set to <code>update</code>.<a href="#section-4-4.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-4-4.2">
-          <p id="section-4-4.2.1">The epoch value in the <code>leaf_node_epoch</code> field is less than or equal to the
-current epoch.<a href="#section-4-4.2.1" class="pilcrow">¶</a></p>
+          <p id="section-4-4.2.1">The <code>extensions</code> field of the LeafNode contains an extension of type
+<code>leaf_node_epoch</code>.<a href="#section-4-4.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-4-4.3">
-          <p id="section-4-4.3.1">If the current LeafNode contains a <code>leaf_node_epoch</code> extension, then the
+          <p id="section-4-4.3.1">The epoch value in the <code>leaf_node_epoch</code> field is less than or equal to the
+current epoch.<a href="#section-4-4.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-4-4.4">
+          <p id="section-4-4.4.1">If the current LeafNode contains a <code>leaf_node_epoch</code> extension, then the
 epoch value in the <code>leaf_node_epoch</code> field is greater than or equal to the
-value in the current LeafNode.<a href="#section-4-4.3.1" class="pilcrow">¶</a></p>
+value in the current LeafNode.<a href="#section-4-4.4.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-4-5">A member of the group applies a Replace proposal by taking the following steps:<a href="#section-4-5" class="pilcrow">¶</a></p>

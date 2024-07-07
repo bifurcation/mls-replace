@@ -142,11 +142,6 @@ Table of Contents
 
             Figure 1: Content of the `leaf_node_epoch` extension
 
-   This extension complements the inclusion of the group_id and
-   leaf_index in the LeafNodeTBS structure, so that the leaf node
-   signature also binds the signed data to a specific epoch of the
-   group.
-
 4.  Replace Proposal
 
    A Replace proposal replaces the indicated LeafNode in the tree with
@@ -165,6 +160,8 @@ Table of Contents
    addition, the recipient of a Replace proposal MUST verify the
    following properties of the new LeafNode and reject the proposal as
    invalid if any one of them is false:
+
+   *  The leaf_node_source field of the LeafNode is be set to update.
 
    *  The extensions field of the LeafNode contains an extension of type
       leaf_node_epoch.
