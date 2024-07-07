@@ -1,6 +1,6 @@
-# TODO - Your title
+# The MLS Replace Proposal
 
-This is the working area for the individual Internet-Draft, "TODO - Your title".
+This is the working area for the individual Internet-Draft, "The MLS Replace Proposal".
 
 * [Editor's Copy](https://bifurcation.github.io/mls-replace/#go.draft-barnes-mls-replace.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-barnes-mls-replace)

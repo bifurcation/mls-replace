@@ -97,10 +97,6 @@ uint64 leaf_node_epoch;
 ~~~
 {: #fig-leaf-node-epoch title="Content of the `leaf_node_epoch` extension" }
 
-This extension complements the inclusion of the `group_id` and `leaf_index` in
-the LeafNodeTBS structure, so that the leaf node signature also binds the signed
-data to a specific epoch of the group.
-
 # Replace Proposal
 
 A Replace proposal replaces the indicated LeafNode in the tree with the value
@@ -119,6 +115,8 @@ for the indicated leaf according to {{Section 7.3 of RFC9420}}, or if the leaf
 node at index `removed` is blank.  In addition, the recipient of a Replace
 proposal MUST verify the following properties of the new LeafNode and reject
 the proposal as invalid if any one of them is false:
+
+* The `leaf_node_source` field of the LeafNode is be set to `update`.
 
 * The `extensions` field of the LeafNode contains an extension of type
   `leaf_node_epoch`.
