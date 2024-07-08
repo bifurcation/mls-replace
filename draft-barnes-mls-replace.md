@@ -185,6 +185,15 @@ leaf nodes contain a `leaf_node_epoch` extension.
 > of [I-D.ietf-tls-tlsflags] (real reference not working right now), which would
 > be a nice thing to include in the MLS extensions document.
 
+> **TODO:** Unlike an Update proposal, a Replace proposal is not signed by the
+> current (i.e. prior to update) key of the replaced member. This allows a
+> malicious insider Bob to issue a Replace proposal for Alice that changes her
+> signature key to one chosen by Bob (assuming Bob can obtain a valid
+> credential for that key). This is not possible with Update proposals.
+> It may be good to prevent this scenario e.g. by having a leaf node extension
+> `signature_under_previous_key` required for Replace proposals that change
+> the signature key.
+
 # IANA Considerations
 
 > **TODO:** Register new proposal type Replace
