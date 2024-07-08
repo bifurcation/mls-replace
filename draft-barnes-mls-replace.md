@@ -26,8 +26,16 @@ venue:
 author:
  -
     fullname: "Richard Barnes"
-    organization: Your Organization Here
+    organization: Cisco
     email: "rlb@ipv.sx"
+ -
+    fullname: "Marta Mularczyk"
+    organization: Amazon
+    email: "mulmarta@amazon.com"
+ -
+    fullname: "Mark Xue"
+    organization: Germ Network, Inc.
+    email: "mark@germ.network"
 
 normative:
 
