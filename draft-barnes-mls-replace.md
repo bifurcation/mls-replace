@@ -75,35 +75,20 @@ would replace.  If an Update proposal is not included in the Commit ending its
 epoch, then it can only be discarded.  The PCS benefits of the Update are lost.
 
 In this document, we define a Replace proposal that fills this gap.  Where the
-Update proposal specifies only the new leaf node, a Replace specifies both the
-leaf node and the leaf index where the leaf node should be inserted.  This
-allows any member of the group to take a leaf node value that another member has
-previously produced (e.g., in an Update proposal), and propose that the latter
-member's representation in the group be replaced with the new leaf node value.
-
-The new flexibility that this mechanism introduces can be abused by a malicious
-member to undermine PCS.  The malicious member can issue a Replace proposal that
-rolls back a victim member's leaf to an earlier, compromised version.  To
-prevent these attacks, we also introduce a `leaf_node_epoch` extension that
-allows a LeafNode to be annotated with the epoch in which it was created.  This
-allows the recipients of a Replace proposal to ensure that the new leaf node was
-created after the one it replaces.
+Update proposal specifies only the new leaf node, a Replace specifies the new
+leaf node, as well as the leaf index where the leaf node should be inserted and
+the hash of that leaf node.  This allows any member of the group to take a leaf
+node value that another member has previously produced (e.g., in an Update
+proposal), and propose that the latter member's representation in the group be
+replaced with the new leaf node value.  The inclusion of the old leaf node's
+hash ensures that the proposal can later be used to revert a new leaf node to an
+older version.
 
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
 
 This document makes use of the terms defined in {{!RFC9420}}.
-
-# Leaf Node Epoch Extension
-
-The `leaf_node_epoch` extension simply describes the epoch in which a LeafNode
-was created:
-
-~~~
-uint64 leaf_node_epoch;
-~~~
-{: #fig-leaf-node-epoch title="Content of the `leaf_node_epoch` extension" }
 
 # Replace Proposal
 
@@ -114,6 +99,7 @@ provided in the proposal.
 struct {
     uint32 replaced;
     LeafNode leaf_node;
+    opaque old_leaf_node_hash;
 } Replace;
 ~~~
 {: #fig-replace title="Content of the Replace proposal" }
@@ -126,15 +112,8 @@ the proposal as invalid if any one of them is false:
 
 * The `leaf_node_source` field of the LeafNode is be set to `update`.
 
-* The `extensions` field of the LeafNode contains an extension of type
-  `leaf_node_epoch`.
-
-* The epoch value in the `leaf_node_epoch` field is less than or equal to the
-  current epoch.
-
-* If the current LeafNode contains a `leaf_node_epoch` extension, then the
-  epoch value in the `leaf_node_epoch` field is greater than or equal to the
-  value in the current LeafNode.
+* The `old_leaf_node_hash` is the hash of the LeafNode currently in leaf with
+  the `replaced` index.
 
 A member of the group applies a Replace proposal by taking the following steps:
 
@@ -172,19 +151,6 @@ Replace proposals are not allowed in external Commits.
 
 # Security Considerations
 
-As noted above, the Replace proposal introduces a risk that a malicioius group
-member could roll back a victim group member to an earlier, compromised
-LeafNode.  Thus while the Replace and `leaf_node_epoch` mechanisms are
-notionally separate, using Replace proposals requires the use of the
-`leaf_node_epoch` extension in order to avoid roll-back attacks.  In a group
-where Replace proposals might be used, the application SHOULD ensure that all
-leaf nodes contain a `leaf_node_epoch` extension.
-
-> **TODO:** It might be worth defining a flag that says `leaf_node_epoch` is
-> required.  That would be a good use of an MLS flags extension, along the lines
-> of [I-D.ietf-tls-tlsflags] (real reference not working right now), which would
-> be a nice thing to include in the MLS extensions document.
-
 > **TODO:** Unlike an Update proposal, a Replace proposal is not signed by the
 > current (i.e. prior to update) key of the replaced member. This allows a
 > malicious insider Bob to issue a Replace proposal for Alice that changes her
@@ -197,8 +163,6 @@ leaf nodes contain a `leaf_node_epoch` extension.
 # IANA Considerations
 
 > **TODO:** Register new proposal type Replace
-
-> **TODO:** Register new extension type leaf_node_epoch
 
 --- back
 
