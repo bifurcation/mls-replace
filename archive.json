@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-01T00:11:21.460987+00:00",
+  "timestamp": "2024-10-03T00:10:16.202261+00:00",
   "repo": "bifurcation/mls-replace",
   "labels": [
     {
@@ -50,5 +50,32 @@
     }
   ],
   "issues": [],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOMTJVRc59T6hH",
+      "title": "Replace `leaf_node_epoch` with `leaf_node_hash`",
+      "url": "https://github.com/bifurcation/mls-replace/pull/1",
+      "state": "OPEN",
+      "author": "kkohbrok",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Instead of (potentially) requiring a leaf_node_epoch extension, just include a hash of the target LeafNode in the proposal.",
+      "createdAt": "2024-10-01T22:05:45Z",
+      "updatedAt": "2024-10-01T22:05:46Z",
+      "baseRepository": "bifurcation/mls-replace",
+      "baseRefName": "main",
+      "baseRefOid": "21a7db6bb94e4dc2d8eb98128c8751e94fa7f234",
+      "headRepository": "kkohbrok/mls-replace",
+      "headRefName": "konrad/leaf_node_hash",
+      "headRefOid": "e23acfb74ab089a35728453382b1481c3c83e3c0",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
